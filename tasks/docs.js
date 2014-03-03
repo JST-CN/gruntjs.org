@@ -134,37 +134,36 @@ module.exports = function (grunt) {
       function getSidebarSection(section, iconClass) {
         var rMode = false,
           l,
-          items = [];
+          items = [],
+          cflag = -1;
 
         // read the Home.md of the wiki, extract the section links
         var lines = fs.readFileSync(base + 'Home.md').toString().split(/\r?\n/);
         for(l in lines) {
           var line = lines[l];
-
           // choose a section of the file
-          if (line === section) { rMode = true; }
+          if (line === section || line.indexOf(section + '|') > -1) { rMode = true;}
           // end of section
           else if (line.substring(0,2) === '##') { rMode = false; }
 
           if (rMode && line.length > 0) {
             var item = line.replace(/#/g,'').replace(']]', '').replace('* [[', ''),
-              url = item;
+              url = item, name;
+
+            if (item.indexOf('|') > -1){
+                name = item.split('|');
+            }
 
             if (item[0] === ' ') {
               // TODO: clean this up...
-              if (iconClass) {
-                items.push({name: item.substring(1,item.length), icon: iconClass});
-              } else {
-                items.push({name: item.substring(1,item.length)});
-              }
+                if (iconClass) {
+                    items.push({name: name ? name[1] : item.substring(1, item.length), icon: iconClass});
+                } else {
+                    items.push({name: name ? name[1] : item.substring(1, item.length)});
+                }
             } else {
                 // update the code to process the settings special for GRUNTJS.ORG
-                if (item.indexOf('|')> -1){
-                    item = item.split('|');
-                    items.push({name: item[1], url: item[0].replace(/ /g,'-').toLowerCase()});
-                } else {
-                    items.push({name: item, url: url.replace(/ /g,'-').toLowerCase()});
-                }
+                items.push({name: name ? name[1] : item, url: (name ? name[0] : url).replace(/ /g,'-').toLowerCase()});
             }
           }
         }
