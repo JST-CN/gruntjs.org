@@ -158,7 +158,13 @@ module.exports = function (grunt) {
                 items.push({name: item.substring(1,item.length)});
               }
             } else {
-              items.push({name: item, url: url.replace(/ /g,'-').toLowerCase()});
+                // update the code to process the settings special for GRUNTJS.ORG
+                if (item.indexOf('|')> -1){
+                    item = item.split('|');
+                    items.push({name: item[1], url: item[0].replace(/ /g,'-').toLowerCase()});
+                } else {
+                    items.push({name: item, url: url.replace(/ /g,'-').toLowerCase()});
+                }
             }
           }
         }
