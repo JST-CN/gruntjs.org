@@ -1,6 +1,5 @@
-Grunt Website
+GruntJS.ORG Website
 ==========================
-
 
 ## Build
 
@@ -26,29 +25,4 @@ Grunt Website
 ## Notes
 
 1. Default server port is : `5678`. Configured in the `Gruntfile`
-
-## Deploy to Heroku
-
-Set Heroku keys (if needed) with
-```
-ssh-keygen -t rsa -C "YOUR_HEROKU_EMAIL" -f  ~/.ssh/id_rsa_heroku
-
-ssh-add ~/.ssh/id_rsa_heroku
-
-heroku keys:add ~/.ssh/id_rsa_heroku.pub
-
-```
-
-Push
-
-```
-git push git@heroku.com:grunt.git master:master
-```
-
-If you need to regenerate the Heroku site, use empty commits:
-
-```
-git commit --allow-empty -m "empty commit"
-git push git@heroku.com:grunt.git master:master
-```
 
