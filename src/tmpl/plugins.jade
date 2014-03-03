@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    .row-fluid
+      .span12.page
+        .hero-unit
+          .plugin-unit
+            h1 插件
+            != content
+            include blocks/advertisements
+          section.main
+            .plugin-list#plugins-contrib
+            table.plugin-list#plugins-all.display(cellspacing='0', width='100%')
+              thead
+                tr
+                  th.colPlugin
+                    | 插件
+                    span.legend
+                  th.colUpdated
+                    | 更新时间
+                    span.legend
+                  th.colDown
+                    | 下载数
+                    span.legend last 30 days
+
+  script(src='/js/plugins.js')

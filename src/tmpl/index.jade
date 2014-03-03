@@ -1,0 +1,152 @@
+extends layout
+
+block gettingStarted
+  p 参阅<a href="/docs/getting-started.html">新手上路</a>指南来引导你在自己的项目中使用Grunt. 一旦你完成了新手上路指南, 迁出一份<a href="/docs/sample-gruntfile.html">Gruntfile样例</a>来学习更多关于<a href="/docs/configuring-tasks.html">配置任务</a>的内容.
+
+block content
+  .container
+    .row-fluid
+      .span9.page
+        .hero-unit
+          .home-header
+            .title-header
+              span.grunt-name Grunt
+              span.tag-line JavaScript任务运行工具
+
+          .why.left
+            h2 为什么使用任务运行工具?
+            p 简而言之，自动化。当你处理诸如代码最小化, 代码编译, 单元测试, 代码规范校验等等重复任务时, 你必须要做的工作越少，你的工作就变得越简单。在你完成配置后，不费吹灰之力，一个任务运行工具可以替你和你的团队完成绝大部分日常工作。
+
+          .why.right
+            h2 为什么使用Grunt?
+            p Grunt是一个庞大的生态系统，每天都在成长。你可以自由的选择数以百计的插件以帮助你自动化的处理任务。如果你所需要的插件还被有人创建，那么你可以自己创建插件并通过npm很方便的发布以供更多人使用并一起完善。
+
+          .technology
+            h2 可用的Grunt插件
+            p 许多你需要的任务已经有可用的Grunt插件了，一些新的插件每天都在发布。现在<a href="/plugins.html">插件列表</a>已经较为齐全了,这里有一些你可能已经听说过了。
+            div
+              a.technology(href='https://npmjs.org/package/grunt-contrib-coffee')
+                span.logo
+                  img(src='/img/logo-coffeescript.jpg', alt='CoffeeScript')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-handlebars')
+                span.logo
+                  img(src='/img/logo-handlebars.jpg', alt='Handlebars')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-jade')
+                span.logo
+                  img(src='/img/logo-jade.jpg', alt='Jade')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-jshint')
+                span.logo
+                  img(src='/img/logo-jshint.jpg', alt='JSHint')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-less')
+                span.logo
+                  img(src='/img/logo-less.jpg', alt='Less')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-requirejs')
+                span.logo
+                  img(src='/img/logo-requirejs.jpg', alt='Require.js')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-sass')
+                span.logo
+                  img(src='/img/logo-sass.jpg', alt='Sass')
+              a.technology(href='https://npmjs.org/package/grunt-contrib-stylus')
+                span.logo
+                  img(src='/img/logo-sylus.jpg', alt='Stylus')
+
+          .grunt-preview
+            h2 这是一个预览!
+            p 虽然grunt的安装很简单，但是让它在你的项目中运行稍微有些复杂。看一下这个例子，一个<a href="https://github.com/cowboy/jquery-tiny-pubsub">样例项目</a>中运行Grunt的输出，看看你的努力能得到什么。
+            // THX 2 @GF3 4 THE CSS <3!!
+            pre.terminal
+              span.command-prompt grunt
+              | 
+              |Running "jshint:gruntfile" (jshint) task
+              |<span class="green">&gt;&gt;</span> 1 file lint free.
+              | 
+              |Running "jshint:src" (jshint) task
+              |<span class="green">&gt;&gt;</span> 1 file lint free.
+              | 
+              |Running "jshint:test" (jshint) task
+              |<span class="green">&gt;&gt;</span> 1 file lint free.
+              | 
+              |Running "qunit:files" (qunit) task
+              |Testing test/tiny-pubsub.html....<span class="green">OK</span>
+              |<span class="green">&gt;&gt;</span> 4 assertions passed (23ms)
+              | 
+              |Running "clean:files" (clean) task
+              |Cleaning "dist"...<span class="green">OK</span>
+              | 
+              |Running "concat:dist" (concat) task
+              |File "dist/ba-tiny-pubsub.js" created.
+              | 
+              |Running "uglify:dist" (uglify) task
+              |File "dist/ba-tiny-pubsub.min.js" created.
+              |Uncompressed size: <span class="green">389</span> bytes.
+              |Compressed size: <span class="green">119</span> bytes gzipped (<span class="green">185</span> bytes minified).
+              | 
+              |<span class="green">Done, without errors.</span>
+              | 
+              |<span class="command-prompt active"><span class="active-prompt"></span></span>
+
+          .who-uses-grunt
+            h2 Grunt的用户都有谁?
+            p 这里仅仅列出了一部分使用Grunt的公司和项目.. 
+              a(href='/who-uses-grunt') 查看更多
+            div
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-twitter.jpg', alt='Twitter')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-jquery.jpg', alt='jQuery')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-adobe.jpg', alt='Adobe')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-modernizr.jpg', alt='Modernizr')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-bocoup.jpg', alt='Bocoup')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-fg.jpg', alt='Filament Group')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-saucelabs.jpg', alt='Sauce Labs')
+              a.technology(href='/who-uses-grunt')
+                span.logo
+                  img(src='/img/logo-bitovi.jpg', alt='Bitovi')
+
+          .how-get-started
+            h2 我该怎样开始?
+            block gettingStarted
+
+      .span3
+        .well.sidebar-nav
+          .latest-version
+            h3 最新版本
+            ul
+              li 稳定版本: v0.4.2
+              li 开发版本: N/A
+
+          include blocks/advertisements
+
+          .latest-news
+            h3 最新消息
+            ul
+              each article in news
+                li
+                  a(href='/blog/' + article.url)
+                    span.title= article.title
+                    span.date= article.postDate
+
+          .getting-started
+            h3 新手上路
+            block gettingStarted
+
+          .social
+            a.github(href='https://github.com/gruntjs/', alt='Grunt on GitHub')
+              span.icon-github
+            a.twitter(href='https://twitter.com/gruntjs/', alt='Grunt on Twitter')
+              span.icon-twitter
+            a.feed(href='/rss', alt='Grunt blog RSS feed')
+              span.icon-feed
+
