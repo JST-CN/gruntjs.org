@@ -7,7 +7,7 @@ block content
         .hero-unit
           h1.news-title= title
           if locals.singlePost
-            span.post-date= "Posted on " + postDate
+            span.post-date= "发布于 " + postDate
             != content
             include includes/disqus
           else
