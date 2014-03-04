@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         names.forEach(function (name) {
 
           var title = name.replace(/-/g,' ').replace('.md', ''),
-            segment = name.replace(/ /g,'-').replace('.md', '').toLowerCase(),
+            segment = name.replace(/ /g,'-').replace('.md', '').toLowerCase() + '.html',
             src = base + name,
             dest = 'build/docs/' + name.replace('.md', '').toLowerCase() + '.html';
 
@@ -61,9 +61,9 @@ module.exports = function (grunt) {
                 var file = 'src/tmpl/docs.jade',
                   templateData = {
                     page:'docs',
-                    rootSidebar: true,
+                    rootSidebar: false,
                     pageSegment: segment,
-                    title:title,
+                    title: getTranslation(title),
                     content: docs.anchorFilter( marked( docs.wikiAnchors(src) ) ),
                     sidebars: sidebars
                   };
@@ -111,8 +111,8 @@ module.exports = function (grunt) {
                 var file = 'src/tmpl/docs.jade',
                   templateData = {
                     page:'api',
-                    pageSegment: name.toLowerCase(),
-                    title:name.replace(/-/g,' '),
+                    pageSegment: name.toLowerCase() + '.html',
+                    title: getTranslation(name.replace(/-/g,' ')),
                     content: docs.anchorFilter( marked( docs.wikiAnchors(src) ) ),
                     sidebars: sidebars
                   };
@@ -134,41 +134,57 @@ module.exports = function (grunt) {
       function getSidebarSection(section, iconClass) {
         var rMode = false,
           l,
-          items = [],
-          cflag = -1;
+          items = [];
 
         // read the Home.md of the wiki, extract the section links
         var lines = fs.readFileSync(base + 'Home.md').toString().split(/\r?\n/);
         for(l in lines) {
           var line = lines[l];
+
           // choose a section of the file
-          if (line === section || line.indexOf(section + '|') > -1) { rMode = true;}
+          if (line === section) { rMode = true; }
           // end of section
           else if (line.substring(0,2) === '##') { rMode = false; }
 
           if (rMode && line.length > 0) {
             var item = line.replace(/#/g,'').replace(']]', '').replace('* [[', ''),
-              url = item, name;
-
-            if (item.indexOf('|') > -1){
-                name = item.split('|');
-            }
+              url = item;
 
             if (item[0] === ' ') {
               // TODO: clean this up...
-                if (iconClass) {
-                    items.push({name: name ? name[1] : item.substring(1, item.length), icon: iconClass});
-                } else {
-                    items.push({name: name ? name[1] : item.substring(1, item.length)});
-                }
+              if (iconClass) {
+                items.push({name: getTranslation(item.substring(1,item.length)), icon: iconClass});
+              } else {
+                items.push({name: getTranslation(item.substring(1,item.length))});
+              }
             } else {
-                // update the code to process the settings special for GRUNTJS.ORG
-                items.push({name: name ? name[1] : item, url: (name ? name[0] : url).replace(/ /g,'-').toLowerCase()});
+              items.push({name: getTranslation(item), url: url.replace(/ /g,'-').toLowerCase() + ".html"});
             }
           }
         }
         return items;
       }
+
+      /**
+       * Get translation for section
+       */
+      var getTranslation= (function(){
+        var dict, l;
+        if (dict == null){
+            dict = {};
+            var lines = fs.readFileSync(base + 'TranslationDict.md').toString().split(/\r?\n/);
+            for(l in lines) {
+              var line = lines[l], items;
+              if (line.indexOf('|') && line.substring(0,1) === '+'){
+                items = line.replace(/\+ /g,'').split("|");
+                (items[0] != "") ? (dict[items[0].toLowerCase()] = items[1]) : (void 0);
+              }
+            }
+        }
+        return function(original, phase){
+           return (original!=null && dict[original.toLowerCase()]!= null) ? dict[original.toLowerCase()] : ((phase == null) ? original : phase);
+        };
+      })();
 
       // marked markdown parser
       var marked = require('marked');

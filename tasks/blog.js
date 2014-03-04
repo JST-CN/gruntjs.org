@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         destName = name.toLowerCase();
 
       articleList.push({
-        url:destName,
+        url:destName + ".html",
         title:postTitle,
         postDate:blog.formatDate(postDate)
       });
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
             templateData = {
               page:'news',
               singlePost:true,
-              url:destName,
+              url:destName + '.html',
               title:postTitle,
               postDate:blog.formatDate(postDate),
               postRawDate:postDate,
