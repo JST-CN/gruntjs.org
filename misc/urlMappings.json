@@ -1,0 +1,102 @@
+{
+    "home" : {
+        "old" : "/article/home.html",
+        "new" : "index.html"
+    },
+    "getting_started" : {
+        "old" : "/article/getting_started.html",
+        "new" : "/docs/getting-started.html"
+    },
+    "configuring_tasks" : {
+        "old" : "/article/configuring_tasks.html",
+        "new" : "/docs/configuring-tasks.html"
+    },
+    "sample_gruntfile" : {
+        "old" : "/article/sample_gruntfile.html",
+        "new" : "/docs/sample-gruntfile.html"
+    },
+    "creating_tasks" : {
+        "old" : "/article/creating_tasks.html",
+        "new" : "/docs/creating-tasks.html"
+    },
+    "creating_plugins" : {
+        "old" : "/article/creating_plugins.html",
+        "new" : "/docs/creating-plugins.html"
+    },
+    "installing_grunt" : {
+        "old" : "/article/installing_grunt.html",
+        "new" : "/docs/installing-grunt.html"
+    },
+    "frequently_asked_questions" : {
+        "old" : "/article/frequently_asked_questions.html",
+        "new" : "/docs/frequently-asked-questions.html"
+    },
+    "project_scaffolding" : {
+        "old" : "/article/project_scaffolding.html",
+        "new" : "/docs/project-scaffolding.html"
+    },
+    "help_resources" : {
+        "old" : "/article/help_resources.html",
+        "new" : "/docs/help-resources.html"
+    },
+    "who_uses_grunt" : {
+        "old" : "/article/who_uses_grunt.html",
+        "new" : "/docs/who-uses-grunt.html"
+    },
+    "contributing" : {
+        "old" : "/article/contributing.html",
+        "new" : "/docs/contributing.html"
+    },
+    "upgrading" : {
+        "old" : "/article/upgrading.html",
+        "new" : "/docs/upgrading-from-0.3-to-0.4.html"
+    },
+    "grunt" : {
+        "old" : "/article/grunt.html",
+        "new" : "/api/grunt.html"
+    },
+    "grunt_config" : {
+        "old" : "/article/grunt_config.html",
+        "new" : "/api/grunt.config.html"
+    },
+    "grunt_event" : {
+        "old" : "/article/grunt_event.html",
+        "new" : "/api/grunt.event.html"
+    },
+    "grunt_fail" : {
+        "old" : "/article/grunt_fail.html",
+        "new" : "/api/grunt.fail.html"
+    },
+    "grunt_file" : {
+        "old" : "/article/grunt_file.html",
+        "new" : "/api/grunt.file.html"
+    },
+    "grunt_log" : {
+        "old" : "/article/grunt_log.html",
+        "new" : "/api/grunt.log.html"
+    },
+    "grunt_option" : {
+        "old" : "/article/grunt_option.html",
+        "new" : "/api/grunt.option.html"
+    },
+    "grunt_task" : {
+        "old" : "/article/grunt_task.html",
+        "new" : "/api/grunt.task.html"
+    },
+    "grunt_template" : {
+        "old" : "/article/grunt_template.html",
+        "new" : "/api/grunt.template.html"
+    },
+    "grunt_util" : {
+        "old" : "/article/grunt_util.html",
+        "new" : "/api/grunt.util.html"
+    },
+    "inside_tasks" : {
+        "old" : "/article/inside_tasks.html",
+        "new" : "/api/inside-tasks.html"
+    },
+    "exit_codes" : {
+        "old" : "/article/exit_codes.html",
+        "new" : "/api/exit-codes.html"
+    }
+}
