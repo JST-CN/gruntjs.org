@@ -26,12 +26,20 @@ module.exports = function (grunt) {
         },
         urlMappings = readJSON( urlMappingsJSON ),
         mapItem,
+        canonicalHead = '<link rel="canonical" href="',
+        canonicalTail = '"/>',
+        headRe = /<\/head>/,
+        headStr = '</head>',
         count = 0;
 
     grunt.log.ok('Copying pages to old position for SEO ...');
     for (var i in urlMappings) {
         mapItem = urlMappings[i];
-        grunt.file.copy(buildPath + mapItem["new"], buildPath + mapItem["old"]);
+        grunt.file.copy(buildPath + mapItem['new'], buildPath + mapItem['old'], {
+            process : function(content){
+                return content.replace(headRe, canonicalHead + mapItem['new'] + canonicalTail + headStr);
+            }
+        });
         count ++;
     }
     grunt.log.ok('Copied ' + count + ' to old position.');
