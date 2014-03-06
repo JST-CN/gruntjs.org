@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="description" content="Grunt中文社区是由网友发起的Grunt.js中文交流社区，关注前端构建工具Grunt.js的应用推广。"><meta name="keywords" content="Grunt.js,Grunt,web前端,前端,HTML,CSS,JavaScript,js,构建,压缩,合并,发布"><title>grunt.option - Grunt 中文社区</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700"><link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"><link href="/atom.xml" rel="alternate" title="Grunt Blog Feed" type="application/atom+xml"><script src="/js/vendor/lib/modernizr.min.js"></script></head><body class="page-api page-secondary"><div class="navbar navbar-inverse"><div class="navbar-inner"><div class="container"><a href="/" class="brand"><span class="logo"></span></a><div class="nav-collapse collapse"><ul class="nav"><li><a href="/docs/getting-started.html"><i class="icon-arrow-right"></i><span>新手上路</span></a></li><li><a href="/plugins.html"><i class="icon-power-cord"></i><span>插件</span></a></li><li><a href="/docs/getting-started.html"><i class="icon-document-alt-stroke"></i><span>文档</span></a></li><li><a href="/api/grunt.html"><i class="icon-cog"></i><span>API</span></a></li></ul><form class="navbar-search pull-right"><input type="text" placeholder="Search" class="search-query"></form></div><!--.nav-collapse--></div></div></div><div class="content"><div class="container grunt.option.html"><div class="row-fluid"><div class="span9 page"><div class="hero-unit"><h1><a class="anchor" href="#grunt.option" name="grunt.option">grunt.option</a></h1>
+<p>Grunt的option API可以用来跨多任务共享参数，以及在命令行中访问参数设置。</p>
+<p>一个简单的例子就是给你的目标(任务目标)打一个标记，标识任务是在开发阶段还是暂存阶段。在命令行中运行<code>grunt deploy --target=staging</code>就会让<code>grunt.option(&#39;target&#39;)</code>返回<code>&quot;staging&quot;</code>。</p>
+<p>下面是一个在<code>Gruntfile</code>中使用<code>target</code>选项的例子：</p>
+<pre><code>grunt.initConfig({
+    compass: {
+        dev: {
+            options: {
+                /* ... */
+                outputStyle: &#39;expanded&#39;
+            },
+        },
+        staging: {
+            options: {
+                /* ... */
+                outputStyle: &#39;compressed&#39;
+            },
+        },
+    },
+});
+var target = grunt.option(&#39;target&#39;) || &#39;dev&#39;;
+grunt.registerTask(&#39;deploy&#39;, [&#39;compass:&#39; + target]);</code></pre>
+<p>当你运行<code>grunt deploy</code>时你的样式表默认情况下为<code>dev</code>目标，并且它会以展开的格式输出CSS代码。如果你运行<code>grunt deploy --target=staging</code>, <code>staging</code>目标会替代父级的<code>dev</code>目标，同时它会以压缩格式输出CSS代码。</p>
+<p><code>grunt.option</code>也可以用在任务中，例如：</p>
+<pre><code>grunt.registerTask(&#39;upload&#39;, &#39;Upload code to specified target.&#39;, function(n) {
+    var target = grunt.option(&#39;target&#39;);
+  // do something useful with target here
+});
+grunt.registerTask(&#39;deploy&#39;, [&#39;validate&#39;, &#39;upload&#39;]);</code></pre>
+<p><em>注意：可以只用只有键(属性)而没有值的方式来指定布尔值选项。例如，在命令行中运行<code>grunt deploy --staging</code>会导致<code>grunt.option(&#39;staging&#39;)</code>返回<code>true</code>。</em></p>
+<h3><a class="anchor" href="#grunt.option" name="grunt.option">grunt.option ☃</a></h3>
+<p>获取或者设置一个选项。</p>
+<pre><code>grunt.option(key[, val])</code></pre>
+<p>可以通过在<code>key</code>键上使用一个前置的<code>no-</code>来否定buerhi选项。例如：</p>
+<pre><code>grunt.option(&#39;staging&#39;, false);
+var isDev = grunt.option(&#39;no-staging&#39;);
+// isDev === true</code></pre>
+<h3><a class="anchor" href="#grunt.option.init" name="grunt.option.init">grunt.option.init</a></h3>
+<p>初始化<code>grunt.option</code>设置。如果忽略参数中的<code>initObject</code>选项就会初始化为一个空对象，否则设置为指定的<code>initObject</code>。</p>
+<pre><code>grunt.option.init([initObject])</code></pre>
+<h3><a class="anchor" href="#grunt.options.flags" name="grunt.options.flags">grunt.options.flags</a></h3>
+<p>以数组的形式选为命令行参数选项。</p>
+<pre><code>grunt.option.flags()    </code></pre>
+<div class="end-link">在文档中发现了错误？
+<a href='https://github.com/gruntjs/grunt-docs/issues'>提交错误报告</a>.</div></div></div><div class="span3"><div class="well sidebar-nav"><ul class="nav nav-list"><li class="nav-header"><i class="icon-cog"></i><span>API</span></li><li><a href="/api/grunt.html" class="false">grunt</a></li><li><a href="/api/grunt.config.html" class="false">grunt.config</a></li><li><a href="/api/grunt.event.html" class="false">grunt.event</a></li><li><a href="/api/grunt.fail.html" class="false">grunt.fail</a></li><li><a href="/api/grunt.file.html" class="false">grunt.file</a></li><li><a href="/api/grunt.log.html" class="false">grunt.log</a></li><li><a href="/api/grunt.option.html" class="active">grunt.option</a></li><li><a href="/api/grunt.task.html" class="false">grunt.task</a></li><li><a href="/api/grunt.template.html" class="false">grunt.template</a></li><li><a href="/api/grunt.util.html" class="false">grunt.util</a></li></ul><ul class="nav nav-list"><li class="nav-header"><span>其他</span></li><li><a href="/api/inside-tasks.html" class="false">任务内幕</a></li><li><a href="/api/exit-codes.html" class="false">出口代码</a></li></ul><div class="advertisements"><script>var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script><script>var ados = ados || {};ados.run = ados.run || [];ados.run.push(function() {/* load placement for account: Bocoup, site: Grunt, size: 120x90 - Button 1 and Text*/ados_add_placement(4433, 27854, "azk48893", 1);ados_load();});</script><div id="azk48893"></div><span class="adsbybocoup">Ads by <a href="http://bocoup.com">Bocoup</a>.</span></div></div></div></div></div></div><footer class="grunt-footer"><div class="inner"><div class="container"><ul class="pull-right"><li><a href="/blog.html">Blog</a></li><li><a href="/docs/upgrading-from-0.3-to-0.4.html">迁移指南</a></li><li><a href="/docs/contributing.html">参与贡献</a></li><li><a href="http://github.com/JST-CN/grunt-docs.git">参与翻译</a></li><li class="social"><a href="https://github.com/gruntjs/" alt="Grunt on GitHub"><span class="icon-github"></span></a></li><li class="social"><a href="https://twitter.com/gruntjs/" alt="Grunt on Twitter"><span class="icon-twitter"></span></a></li><li class="social"><a href="/atom.xml" alt="Grunt blog RSS feed"><span class="icon-feed"></span></a></li><li>QQ群(Grunt同学会):16613475</li></ul><ul class="pull-left"><li>Grunt开发工作由<a href="http://bocoup.com/" alt="Bocoup">Bocoup</a>资助,中文翻译由<a href="http://github.com/JST-CN/" alt="JST-CN">JST-CN</a>贡献</li></ul></div></div></footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-48624170-1', 'gruntjs.org');
+ga('send', 'pageview');</script><script>document.write('<script type="text/javascript" src="' + ('https:'==document.location.protocol?'https://':'http://c.') + 'jslogger.com/jslogger.js"><\/script>');</script><script>window.jslogger = new JSLogger();</script><script src="http://tajs.qq.com/stats?sId=23584984"></script></body></html>

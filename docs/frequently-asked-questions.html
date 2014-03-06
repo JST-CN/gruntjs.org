@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="description" content="Grunt中文社区是由网友发起的Grunt.js中文交流社区，关注前端构建工具Grunt.js的应用推广。"><meta name="keywords" content="Grunt.js,Grunt,web前端,前端,HTML,CSS,JavaScript,js,构建,压缩,合并,发布"><title>常见问题 - Grunt 中文社区</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700"><link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"><link href="/atom.xml" rel="alternate" title="Grunt Blog Feed" type="application/atom+xml"><script src="/js/vendor/lib/modernizr.min.js"></script></head><body class="page-docs page-secondary"><div class="navbar navbar-inverse"><div class="navbar-inner"><div class="container"><a href="/" class="brand"><span class="logo"></span></a><div class="nav-collapse collapse"><ul class="nav"><li><a href="/docs/getting-started.html"><i class="icon-arrow-right"></i><span>新手上路</span></a></li><li><a href="/plugins.html"><i class="icon-power-cord"></i><span>插件</span></a></li><li><a href="/docs/getting-started.html"><i class="icon-document-alt-stroke"></i><span>文档</span></a></li><li><a href="/api/grunt.html"><i class="icon-cog"></i><span>API</span></a></li></ul><form class="navbar-search pull-right"><input type="text" placeholder="Search" class="search-query"></form></div><!--.nav-collapse--></div></div></div><div class="content"><div class="container frequently-asked-questions.html"><div class="row-fluid"><div class="span9 page"><div class="hero-unit"><h1>常见问题</h1>
+<h2><a class="anchor" href="#grunt" name="grunt">如何安装Grunt?</a></h2>
+<p>对于一般安装说明，请阅读<a href="http://gruntjs.com/getting-started/">新手入门</a>指南。如果你在阅完读新手入门指南之后想要了解更多具体的信息，请阅读详细的<a href="http://gruntjs.com/installing-grunt/">安装Grunt</a>指南。</p>
+<h2>我什么时候能够使用开发中的某个特性？</h2>
+<p>依据<a href="http://gruntjs.com/installing-grunt/">安装Grunt</a>指南中的说明可以了解如何安装发布的和未发布的开发版本的Grunt(对于插件，你也可以使用npm安装并添加到依赖中使用；对于新的特性可以查阅相关说明安装使用)。</p>
+<h2><a class="anchor" href="#grunt-windows" name="grunt-windows">Grunt能在Windows上工作吗？</a></h2>
+<p>Grunt可以很好的工作在Windows平台，因为<a href="http://nodejs.org/">Node.js</a>和<a href="http://npmjs.org/">npm</a>在Windows上都工作得很好(Grunt是基于Node.js的，因而是能够跨平台工作，对于特定平台不支持的特性一般都会有相关说明或者有兼容性的选择来支持)。通常情况下问题在于<a href="http://www.cygwin.com/">Cygwin</a>，因为它捆绑了一个过时版本的Node.js。</p>
+<p>避免这个问题最好的方式是使用<a href="http://msysgit.github.com/">msysGit安装器</a>安装二进制的<code>git</code>，然后使用<a href="http://nodejs.org/#download">Node.js安装器</a>安装二进制的<code>node</code>和<code>npm</code>，并且使用内置的<a href="http://www.cs.princeton.edu/courses/archive/spr05/cos126/cmd-prompt.html">Window命令提示符</a>或者<a href="http://support.microsoft.com/kb/968929">PowerShell</a>替代Cygwin(或者说我们首可以先安装好Git环境，然后将托管在Github上的Grunt库克隆到本地来安装使用Grunt，在工具方面Windows对Node.js的支持或许有欠缺，但是在对Node.js本身的支持上已经做得很好了)。</p>
+<h2>为什么我的异步任务不能完成？</h2>
+<p>如果发生这种情况可能是由于你忘记调用<a href="http://gruntjs.com/grunt.task#wiki-this-async">this.async</a>方法来告诉Grunt，你的任务是异步的。为了简单起见，Grunt使用了同步编码的风格，可以通过在任务体内调用<code>this.async()</code>方法将该任务转换为异步任务。</p>
+<p>注意，可以传递<code>false</code>给<code>done()</code>函数来告诉Grunt该任务失败。</p>
+<p>例子:</p>
+<pre><code>grunt.registerTask(&#39;asyncme&#39;, &#39;My asynchronous task.&#39;, function() {
+    var done = this.async();
+    doSomethingAsync(done);
+});</code></pre>
+<h2><a class="anchor" href="#tab" name="tab">如何启用tab命令来自动补全？</a></h2>
+<p>添加下面的代码到你的<code>~/.bashrc</code>文件中来在Grunt中来启用bash tab自动补全功能：</p>
+<pre><code>eval &quot;$(grunt --completion=bash)&quot;</code></pre>
+<p>当然前提是你已经使用<code>npm install -g grunt</code>在全局范围内安装好了Grunt。当前，自动补全唯一支持的shell脚本是bash。</p>
+<h2>如何跨多任务共享参数？</h2>
+<p>虽然每个任务都可以接受它自己的参数，但是这里有几个选项可以在多个任务之间进行参数共享。</p>
+<h3>&quot;动态&quot;别名任务</h3>
+<p><strong>这是在多任务间共享参数的首选方法。</strong></p>
+<p><a href="http://gruntjs.com/grunt#wiki-grunt-registertask">别名任务</a>是非常简单的，一个常规的任务可以使用<a href="http://gruntjs.com/grunt.task#wiki-grunt-task-run">grunt.task.run</a>方法让它编程一个有效的&quot;动态的&quot;别名任务函数。在下面的例子中，在命令行运行<code>grunt build:001</code>的结果就是执行<code>foo:001</code>,<code>bar:001</code>和<code>baz:001</code>这三个任务。</p>
+<pre><code>grunt.registerTask(&#39;build&#39;, &#39;Run all my build tasks.&#39;, function(n) {
+  if (n == null) {
+    grunt.warn(&#39;Build num must be specified, like build:001.&#39;);
+  }
+  grunt.task.run(&#39;foo:&#39; + n, &#39;bar:&#39; + n, &#39;baz:&#39; + n);
+});</code></pre>
+<h3><a class="anchor" href="#options" name="options">-- options</a></h3>
+<p>另一种跨多任务共享参数的方式就是使用<a href="http://gruntjs.com/grunt#wiki-grunt-option">grunt.option</a>。在下面的例子中，在命令行中运行<code>grunt deploy --target=staging</code>将导致<code>grunt.option(&#39;target&#39;)</code>返回<code>&quot;staging&quot;</code>。</p>
+<pre><code>grunt.registerTask(&#39;upload&#39;,&#39;Upload code to specified target.&#39;, function(n){
+    var target = grunt.option(&#39;target&#39;);
+    //在这里使用target做一些有用的事情
+});
+grunt.registerTask(&#39;deploy&#39;, [&#39;validate&#39;, &#39;upload&#39;]);</code></pre>
+<p><em>注意布尔类型的选项(options)可以只指定使用一个没有值的键。例如，在命行中运行<code>grunt deploy --staging</code>将导致<code>grunt.option(&#39;staging&#39;)</code>返回<code>true</code>.</em></p>
+<h3>全局和配置</h3>
+<p>在其他情况下，你可能希望暴露一个设置配置或者全局的值方法。 在这种情况下，可以在注册任务时设置其参数作为一个全局对象的或者项目配置的值。</p>
+<p>在下面的例子中，在命令行运行<code>grunt set_global:name:peter set_config:target:staging deploy</code>会导致<code>global.name</code>的值为<code>&quot;peter&quot;</code>以及<code>grunt.config(&#39;target&#39;)</code>将会返回<code>&quot;staging&quot;</code>。由此推断，<code>deploy</code>任务就可以使用这些值。</p>
+<pre><code>grunt.registerTask(&#39;set_global&#39;, &#39;Set a global variable.&#39;, function(name, val){
+    global[name] = val;
+});
+
+grunt.registerTask(&#39;set_config&#39;, &#39;Set a config property.&#39;, function(name, val){
+    grunt.config.set(name, val);
+});</code></pre>
+<h2><a class="anchor" href="#grunt-0.3" name="grunt-0.3">Grunt 0.3相关问题</a></h2>
+<h3><a class="anchor" href="#windows-grunt-0.3-grunt-js" name="windows-grunt-0.3-grunt-js">在Windows的Grunt 0.3中, 为什么当我尝试运行grunt时会打开我的JS编辑器</a></h3>
+<p>如果你在<a href="http://gruntjs.com/getting-started">Gruntfile</a>所在目录中(在命令行进入到这个目录)，当你输入grunt时，Windows中会尝试执行该文件(实际上Windows中会尝试执行grunt.js，因为在0.4.x之前的版本中Gruntfile.js名为grunt.js)。因此你应该输入<code>grunt.cmd</code>来替代。</p>
+<p>另一种方式是使用<code>DOSKEY</code>命令创建一个Grunt宏, 可以参考也读<a href="http://devblog.point2.com/2010/05/14/setup-persistent-aliases-macros-in-windows-command-prompt-cmd-exe-using-doskey/">这篇文章</a>。这样就会允许你使用<code>grunt</code>来替代<code>grunt.cmd</code>。</p>
+<p>下面是你可以使用的<code>DOSKEY</code>命令：</p>
+<pre><code>DOSKEY grunt=grunt.cmd $*</code></pre>
+<div class="end-link">在文档中发现了错误？
+<a href='https://github.com/gruntjs/grunt-docs/issues'>提交错误报告</a>.</div></div></div><div class="span3"><div class="well sidebar-nav"><ul class="nav nav-list"><li class="nav-header"><i class="icon-document-alt-stroke"></i><span>文档</span></li><li><a href="/docs/getting-started.html" class="false">新手上路</a></li><li><a href="/docs/configuring-tasks.html" class="false">配置任务</a></li><li><a href="/docs/sample-gruntfile.html" class="false">Gruntfile范例</a></li><li><a href="/docs/creating-tasks.html" class="false">创建任务</a></li><li><a href="/docs/creating-plugins.html" class="false">创建插件</a></li><li><a href="/docs/using-the-cli.html" class="false">使用CLI</a></li></ul><ul class="nav nav-list"><li class="nav-header"><span>高级</span></li><li><a href="/docs/installing-grunt.html" class="false">安装Grunt</a></li><li><a href="/docs/frequently-asked-questions.html" class="active">常见问题</a></li><li><a href="/docs/project-scaffolding.html" class="false">项目脚手架</a></li></ul><ul class="nav nav-list"><li class="nav-header"><span>社区</span></li><li><a href="/docs/help-resources.html" class="false">参考资料</a></li><li><a href="/docs/who-uses-grunt.html" class="false">Grunt用户</a></li><li><a href="/docs/built-with-grunt-badge.html" class="false">使用Grunt徽章</a></li><li><a href="/docs/contributing.html" class="false">参与贡献</a></li></ul><ul class="nav nav-list"><li class="nav-header"><span>迁移指南</span></li><li><a href="/docs/upgrading-from-0.3-to-0.4.html" class="false">从0.3迁移到0.4</a></li></ul><div class="advertisements"><script>var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script><script>var ados = ados || {};ados.run = ados.run || [];ados.run.push(function() {/* load placement for account: Bocoup, site: Grunt, size: 120x90 - Button 1 and Text*/ados_add_placement(4433, 27854, "azk48893", 1);ados_load();});</script><div id="azk48893"></div><span class="adsbybocoup">Ads by <a href="http://bocoup.com">Bocoup</a>.</span></div></div></div></div></div></div><footer class="grunt-footer"><div class="inner"><div class="container"><ul class="pull-right"><li><a href="/blog.html">Blog</a></li><li><a href="/docs/upgrading-from-0.3-to-0.4.html">迁移指南</a></li><li><a href="/docs/contributing.html">参与贡献</a></li><li><a href="http://github.com/JST-CN/grunt-docs.git">参与翻译</a></li><li class="social"><a href="https://github.com/gruntjs/" alt="Grunt on GitHub"><span class="icon-github"></span></a></li><li class="social"><a href="https://twitter.com/gruntjs/" alt="Grunt on Twitter"><span class="icon-twitter"></span></a></li><li class="social"><a href="/atom.xml" alt="Grunt blog RSS feed"><span class="icon-feed"></span></a></li><li>QQ群(Grunt同学会):16613475</li></ul><ul class="pull-left"><li>Grunt开发工作由<a href="http://bocoup.com/" alt="Bocoup">Bocoup</a>资助,中文翻译由<a href="http://github.com/JST-CN/" alt="JST-CN">JST-CN</a>贡献</li></ul></div></div></footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-48624170-1', 'gruntjs.org');
+ga('send', 'pageview');</script><script>document.write('<script type="text/javascript" src="' + ('https:'==document.location.protocol?'https://':'http://c.') + 'jslogger.com/jslogger.js"><\/script>');</script><script>window.jslogger = new JSLogger();</script><script src="http://tajs.qq.com/stats?sId=23584984"></script></body></html>
